@@ -108,12 +108,11 @@ namespace SpaceRace
             }
             
             //Player makes it to the other side
-            if (player1.X < 0)
+            if (player1.Y < 0)
             {
                 player1Score++;
-               // p1ScoreLabel.Text = $"{player2Score}";
+                p1ScoreLabel.Text = $"{player1Score}";
 
-                player1.X = 130;
                 player1.Y = 280;
             }
 
