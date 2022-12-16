@@ -17,8 +17,13 @@ namespace SpaceRace
     {
         Rectangle player1 = new Rectangle(130, 280, 20, 20);
         Rectangle player2 = new Rectangle(400, 280, 20, 20);
+        List<Rectangle> obstacle = new List<Rectangle>();
+        List<int> obstacleSpeeds = new List<int>();
+
 
         SolidBrush goldBrush = new SolidBrush(Color.Goldenrod);
+        SolidBrush whiteBrush = new SolidBrush(Color.White);
+
 
         int player1Score = 0;
         int player2Score = 0;
@@ -26,10 +31,14 @@ namespace SpaceRace
         int player2Speed = 4;
         int speed;
 
+        int obstacleSize = 10;
+        int obstacleSpeed = 7;
+
         bool wDown = false;
         bool sDown = false;
         bool upArrowDown = false;
         bool downArrowDown = false;
+
 
 
         public Form1()
@@ -77,8 +86,16 @@ namespace SpaceRace
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            //Draw players
             e.Graphics.FillRectangle(goldBrush, player1);
             e.Graphics.FillRectangle(goldBrush, player2);
+
+            //Draw obstacles
+            for (int i = 0; i < obstacle.Count(); i++)
+            {
+                e.Graphics.FillEllipse(whiteBrush, obstacle[i]);
+
+            }
 
 
         }
@@ -106,14 +123,56 @@ namespace SpaceRace
             {
                 player2.Y += player2Speed;
             }
-            
+
             //Player makes it to the other side
-            if (player1.Y < 0)
+            if (player2.Y < 5)
+            {
+                player2Score++;
+                p2ScoreLabel.Text = $"{player2Score}";
+
+                player2.Y = 280;
+            }
+            else if (player1.Y < 5)
             {
                 player1Score++;
                 p1ScoreLabel.Text = $"{player1Score}";
 
                 player1.Y = 280;
+            }
+
+            //move obstacles 
+            for (int i = 0; i < obstacle.Count; i++)
+            {
+                int y = obstacle[i].Y + obstacleSpeeds[i];
+                obstacle[i] = new Rectangle(obstacle[i].X, y, obstacleSize, obstacleSize);
+            }
+
+            //remove obstacle if it goes off screen
+            for (int i = 0; i < obstacle.Count; i++)
+            {
+                if (obstacle[i].Y >= this.Height)
+                {
+                    obstacle.RemoveAt(i);
+                    obstacleSpeeds.RemoveAt(i);
+                }
+            }
+
+            //check for collision between players and obstacles
+            for (int i = 0; i < obstacle.Count; i++)
+            {
+                if (player1.IntersectsWith(obstacle[i]))
+                {
+                    player1.Y = 280;
+                }
+                else if (player2.IntersectsWith(obstacle[i]))
+                {
+                    player2.Y = 280;
+                }
+
+                obstacle.RemoveAt(i);
+                obstacleSpeeds.RemoveAt(i);
+
+                
             }
 
             Refresh();
