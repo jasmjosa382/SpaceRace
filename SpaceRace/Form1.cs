@@ -31,7 +31,7 @@ namespace SpaceRace
         int player2Speed = 4;
         int speed;
 
-        int obstacleSize = 10;
+        int obstacleSize =7;
         int obstacleSpeed = 7;
 
         bool wDown = false;
@@ -39,7 +39,8 @@ namespace SpaceRace
         bool upArrowDown = false;
         bool downArrowDown = false;
 
-
+        Random randGen = new Random();
+        int randValue = 0;
 
         public Form1()
         {
@@ -93,7 +94,7 @@ namespace SpaceRace
             //Draw obstacles
             for (int i = 0; i < obstacle.Count(); i++)
             {
-                e.Graphics.FillEllipse(whiteBrush, obstacle[i]);
+                e.Graphics.FillRectangle(whiteBrush, obstacle[i]);
 
             }
 
@@ -143,8 +144,18 @@ namespace SpaceRace
             //move obstacles 
             for (int i = 0; i < obstacle.Count; i++)
             {
-                int y = obstacle[i].Y + obstacleSpeeds[i];
-                obstacle[i] = new Rectangle(obstacle[i].X, y, obstacleSize, obstacleSize);
+                int x = obstacle[i].X + obstacleSpeeds[i];
+                obstacle[i] = new Rectangle(obstacle[i].Y, x, obstacleSize, obstacleSize);
+            }
+
+            //generate a random value
+            randValue = randGen.Next(1, 101);
+
+            //generate new ball if it is time
+            if (randValue < 3)
+            {
+                obstacle.Add(new Rectangle(randGen.Next(0, this.Width - obstacleSize), 0, obstacleSize, obstacleSize));
+                obstacleSpeeds.Add(16);
             }
 
             //remove obstacle if it goes off screen
@@ -163,14 +174,17 @@ namespace SpaceRace
                 if (player1.IntersectsWith(obstacle[i]))
                 {
                     player1.Y = 280;
+                    obstacle.RemoveAt(i);
+                    obstacleSpeeds.RemoveAt(i);
                 }
                 else if (player2.IntersectsWith(obstacle[i]))
                 {
                     player2.Y = 280;
+                    obstacle.RemoveAt(i);
+                    obstacleSpeeds.RemoveAt(i);
                 }
 
-                obstacle.RemoveAt(i);
-                obstacleSpeeds.RemoveAt(i);
+            
 
                 
             }
