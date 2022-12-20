@@ -15,10 +15,12 @@ namespace SpaceRace
 {
     public partial class Form1 : Form
     {
-        Rectangle player1 = new Rectangle(130, 280, 20, 20);
-        Rectangle player2 = new Rectangle(400, 280, 20, 20);
+        Rectangle player1 = new Rectangle(130, 310, 20, 20);
+        Rectangle player2 = new Rectangle(400, 310, 20, 20);
         List<Rectangle> obstacle = new List<Rectangle>();
+        List<Rectangle> obstacle2 = new List<Rectangle>();
         List<int> obstacleSpeeds = new List<int>();
+        List<int> obstacle2Speeds = new List<int>();
 
 
         SolidBrush goldBrush = new SolidBrush(Color.Goldenrod);
@@ -98,6 +100,12 @@ namespace SpaceRace
 
             }
 
+            for (int i = 0; i < obstacle2.Count(); i++)
+            {
+                e.Graphics.FillRectangle(whiteBrush, obstacle2[i]);
+
+            }
+
 
         }
 
@@ -131,21 +139,28 @@ namespace SpaceRace
                 player2Score++;
                 p2ScoreLabel.Text = $"{player2Score}";
 
-                player2.Y = 280;
+                player2.Y = 310;
             }
             else if (player1.Y < 5)
             {
                 player1Score++;
                 p1ScoreLabel.Text = $"{player1Score}";
 
-                player1.Y = 280;
+                player1.Y = 310;
             }
 
             //move obstacles 
             for (int i = 0; i < obstacle.Count; i++)
             {
                 int x = obstacle[i].X + obstacleSpeeds[i];
-                obstacle[i] = new Rectangle(obstacle[i].Y, x, obstacleSize, obstacleSize);
+                obstacle[i] = new Rectangle(x, obstacle[i].Y, obstacleSize, obstacleSize);
+            }
+
+            //move obstacles on right side
+            for (int i = 0; i < obstacle2.Count; i++)
+            {
+                int x = obstacle2[i].X - obstacle2Speeds[i];
+                obstacle2[i] = new Rectangle(x, obstacle2[i].Y, obstacleSize, obstacleSize);
             }
 
             //generate a random value
@@ -154,8 +169,28 @@ namespace SpaceRace
             //generate new ball if it is time
             if (randValue < 3)
             {
-                obstacle.Add(new Rectangle(randGen.Next(0, this.Width - obstacleSize), 0, obstacleSize, obstacleSize));
+                obstacle.Add(new Rectangle(0, randGen.Next(0, this.Height - 80), obstacleSize, obstacleSize));
+                obstacleSpeeds.Add(14);
+            }
+            else if (randValue < 8)
+            {
+                obstacle.Add(new Rectangle(0, randGen.Next(0, this.Height - 80), obstacleSize, obstacleSize));
                 obstacleSpeeds.Add(16);
+            }
+            else if (randValue < 20)
+            {
+                obstacle.Add(new Rectangle(0, randGen.Next(0, this.Height - 80), obstacleSize, obstacleSize));
+                obstacleSpeeds.Add(12);
+            }
+            else if (randValue < 8)
+            {
+                obstacle2.Add(new Rectangle(0, randGen.Next(0, this.Height - 80), obstacleSize, obstacleSize));
+                obstacle2Speeds.Add(16);
+            }
+            else if (randValue < 20)
+            {
+                obstacle2.Add(new Rectangle(0, randGen.Next(0, this.Height - 80), obstacleSize, obstacleSize));
+                obstacle2Speeds.Add(12);
             }
 
             //remove obstacle if it goes off screen
@@ -168,28 +203,49 @@ namespace SpaceRace
                 }
             }
 
+            for (int i = 0; i < obstacle2.Count; i++)
+            {
+                if (obstacle2[i].Y >= this.Height)
+                {
+                    obstacle2.RemoveAt(i);
+                    obstacle2Speeds.RemoveAt(i);
+                }
+            }
+
             //check for collision between players and obstacles
             for (int i = 0; i < obstacle.Count; i++)
             {
                 if (player1.IntersectsWith(obstacle[i]))
                 {
-                    player1.Y = 280;
+                    player1.Y = 310;
                     obstacle.RemoveAt(i);
                     obstacleSpeeds.RemoveAt(i);
                 }
                 else if (player2.IntersectsWith(obstacle[i]))
                 {
-                    player2.Y = 280;
+                    player2.Y = 310;
                     obstacle.RemoveAt(i);
                     obstacleSpeeds.RemoveAt(i);
                 }
+                }
 
-            
-
-                
+            for (int i = 0; i < obstacle2.Count; i++)
+            {
+                if (player1.IntersectsWith(obstacle2[i]))
+                {
+                    player1.Y = 310;
+                    obstacle2.RemoveAt(i);
+                    obstacle2Speeds.RemoveAt(i);
+                }
+                else if (player2.IntersectsWith(obstacle2[i]))
+                {
+                    player2.Y = 310;
+                    obstacle2.RemoveAt(i);
+                    obstacle2Speeds.RemoveAt(i);
+                }
             }
 
-            Refresh();
+                Refresh();
         }
     }
 }

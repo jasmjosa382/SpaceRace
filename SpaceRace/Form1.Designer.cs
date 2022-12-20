@@ -32,6 +32,7 @@
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.p1ScoreLabel = new System.Windows.Forms.Label();
             this.p2ScoreLabel = new System.Windows.Forms.Label();
+            this.barrierLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -64,12 +65,20 @@
             this.p2ScoreLabel.Text = "0";
             this.p2ScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // barrierLabel
+            // 
+            this.barrierLabel.Location = new System.Drawing.Point(-5, 303);
+            this.barrierLabel.Name = "barrierLabel";
+            this.barrierLabel.Size = new System.Drawing.Size(11, 59);
+            this.barrierLabel.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(584, 361);
+            this.Controls.Add(this.barrierLabel);
             this.Controls.Add(this.p2ScoreLabel);
             this.Controls.Add(this.p1ScoreLabel);
             this.DoubleBuffered = true;
@@ -88,6 +97,7 @@
         private System.Windows.Forms.Timer gameTimer;
         private System.Windows.Forms.Label p1ScoreLabel;
         private System.Windows.Forms.Label p2ScoreLabel;
+        private System.Windows.Forms.Label barrierLabel;
     }
 }
 
