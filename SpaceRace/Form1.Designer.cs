@@ -32,7 +32,9 @@
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.p1ScoreLabel = new System.Windows.Forms.Label();
             this.p2ScoreLabel = new System.Windows.Forms.Label();
-            this.barrierLabel = new System.Windows.Forms.Label();
+            this.winLabel = new System.Windows.Forms.Label();
+            this.titleLabel = new System.Windows.Forms.Label();
+            this.subtitleLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -65,12 +67,40 @@
             this.p2ScoreLabel.Text = "0";
             this.p2ScoreLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // barrierLabel
+            // winLabel
             // 
-            this.barrierLabel.Location = new System.Drawing.Point(-5, 303);
-            this.barrierLabel.Name = "barrierLabel";
-            this.barrierLabel.Size = new System.Drawing.Size(11, 59);
-            this.barrierLabel.TabIndex = 3;
+            this.winLabel.BackColor = System.Drawing.Color.Transparent;
+            this.winLabel.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.winLabel.ForeColor = System.Drawing.Color.White;
+            this.winLabel.Location = new System.Drawing.Point(173, 317);
+            this.winLabel.Name = "winLabel";
+            this.winLabel.Size = new System.Drawing.Size(232, 35);
+            this.winLabel.TabIndex = 4;
+            this.winLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // titleLabel
+            // 
+            this.titleLabel.BackColor = System.Drawing.Color.Transparent;
+            this.titleLabel.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleLabel.ForeColor = System.Drawing.Color.White;
+            this.titleLabel.Location = new System.Drawing.Point(191, 143);
+            this.titleLabel.Name = "titleLabel";
+            this.titleLabel.Size = new System.Drawing.Size(191, 35);
+            this.titleLabel.TabIndex = 5;
+            this.titleLabel.Text = "titleLabel";
+            this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // subtitleLabel
+            // 
+            this.subtitleLabel.BackColor = System.Drawing.Color.Transparent;
+            this.subtitleLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.subtitleLabel.ForeColor = System.Drawing.Color.White;
+            this.subtitleLabel.Location = new System.Drawing.Point(86, 178);
+            this.subtitleLabel.Name = "subtitleLabel";
+            this.subtitleLabel.Size = new System.Drawing.Size(392, 35);
+            this.subtitleLabel.TabIndex = 6;
+            this.subtitleLabel.Text = "subtitleLabel";
+            this.subtitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -78,7 +108,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(584, 361);
-            this.Controls.Add(this.barrierLabel);
+            this.Controls.Add(this.subtitleLabel);
+            this.Controls.Add(this.titleLabel);
+            this.Controls.Add(this.winLabel);
             this.Controls.Add(this.p2ScoreLabel);
             this.Controls.Add(this.p1ScoreLabel);
             this.DoubleBuffered = true;
@@ -97,7 +129,9 @@
         private System.Windows.Forms.Timer gameTimer;
         private System.Windows.Forms.Label p1ScoreLabel;
         private System.Windows.Forms.Label p2ScoreLabel;
-        private System.Windows.Forms.Label barrierLabel;
+        private System.Windows.Forms.Label winLabel;
+        private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.Label subtitleLabel;
     }
 }
 

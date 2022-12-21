@@ -33,8 +33,8 @@ namespace SpaceRace
         int player2Speed = 4;
         int speed;
 
-        int obstacleSize =7;
-        int obstacleSpeed = 7;
+        int obstacleSize =5;
+        int obstacleSpeed = 2;
 
         bool wDown = false;
         bool sDown = false;
@@ -44,9 +44,31 @@ namespace SpaceRace
         Random randGen = new Random();
         int randValue = 0;
 
+        string gameState = "waiting";
+
         public Form1()
         {
             InitializeComponent();
+        }
+
+        public void GameSetup()
+        {
+            gameState = "running";
+
+            titleLabel.Text = "";
+            subtitleLabel.Text = "";
+
+            gameTimer.Enabled = true;
+            player1Score = 0;
+            player2Score = 0;
+
+            player1.Y = 310;
+            player2.Y = 310;
+
+            obstacle.Clear();
+            obstacleSpeeds.Clear();
+            obstacle2.Clear();
+            obstacle2Speeds.Clear();
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
@@ -84,28 +106,60 @@ namespace SpaceRace
                 case Keys.Down:
                     downArrowDown = true;
                     break;
+                case Keys.Space:
+                    if (gameState == "waiting" || gameState == "over")
+                    {
+                        GameSetup();
+                    }
+                    break;
+                case Keys.Escape:
+                    if (gameState == "waiting" || gameState == "over")
+                    {
+                        this.Close();
+                    }
+                    break;
             }
-            }
+        }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            //Draw players
-            e.Graphics.FillRectangle(goldBrush, player1);
-            e.Graphics.FillRectangle(goldBrush, player2);
-
-            //Draw obstacles
-            for (int i = 0; i < obstacle.Count(); i++)
+            if (gameState == "waiting")
             {
-                e.Graphics.FillRectangle(whiteBrush, obstacle[i]);
+                titleLabel.Text = "Space Race Game";
+                subtitleLabel.Text = "Press Space to Start or Esc to Exit";
+            }
+            else if (gameState == "running")
+            {
+                //update labels
+                p1ScoreLabel.Text = $"{player1Score}";
+                p2ScoreLabel.Text = $"{player2Score}";
+
+                //Draw players
+                e.Graphics.FillRectangle(goldBrush, player1);
+                e.Graphics.FillRectangle(goldBrush, player2);
+
+                //Draw obstacles
+                for (int i = 0; i < obstacle.Count(); i++)
+                {
+                    e.Graphics.FillRectangle(whiteBrush, obstacle[i]);
+
+                }
+
+                for (int i = 0; i < obstacle2.Count(); i++)
+                {
+                    e.Graphics.FillRectangle(whiteBrush, obstacle2[i]);
+
+                }
 
             }
-
-            for (int i = 0; i < obstacle2.Count(); i++)
+            else if (gameState == "over")
             {
-                e.Graphics.FillRectangle(whiteBrush, obstacle2[i]);
+                p1ScoreLabel.Text = "";
+                p2ScoreLabel.Text = "";
 
+                titleLabel.Text = "Game Over";
+                subtitleLabel.Text = "Press Space to Start or Esc to Exit";
             }
-
 
         }
 
@@ -159,7 +213,7 @@ namespace SpaceRace
             //move obstacles on right side
             for (int i = 0; i < obstacle2.Count; i++)
             {
-                int x = obstacle2[i].X - obstacle2Speeds[i];
+                int x = obstacle2[i].X + obstacle2Speeds[i];
                 obstacle2[i] = new Rectangle(x, obstacle2[i].Y, obstacleSize, obstacleSize);
             }
 
@@ -170,27 +224,22 @@ namespace SpaceRace
             if (randValue < 3)
             {
                 obstacle.Add(new Rectangle(0, randGen.Next(0, this.Height - 80), obstacleSize, obstacleSize));
+                obstacleSpeeds.Add(10);
+            }
+            else if (randValue < 8)
+            {
+                obstacle.Add(new Rectangle(0, randGen.Next(0, this.Height - 80), obstacleSize, obstacleSize));
                 obstacleSpeeds.Add(14);
             }
-            else if (randValue < 8)
+            else if (randValue < 28)
             {
-                obstacle.Add(new Rectangle(0, randGen.Next(0, this.Height - 80), obstacleSize, obstacleSize));
-                obstacleSpeeds.Add(16);
+                obstacle2.Add(new Rectangle(600, randGen.Next(0, this.Height - 80), obstacleSize, obstacleSize));
+                obstacle2Speeds.Add(-16);
             }
-            else if (randValue < 20)
+            else if (randValue < 28)
             {
-                obstacle.Add(new Rectangle(0, randGen.Next(0, this.Height - 80), obstacleSize, obstacleSize));
-                obstacleSpeeds.Add(12);
-            }
-            else if (randValue < 8)
-            {
-                obstacle2.Add(new Rectangle(0, randGen.Next(0, this.Height - 80), obstacleSize, obstacleSize));
-                obstacle2Speeds.Add(16);
-            }
-            else if (randValue < 20)
-            {
-                obstacle2.Add(new Rectangle(0, randGen.Next(0, this.Height - 80), obstacleSize, obstacleSize));
-                obstacle2Speeds.Add(12);
+                obstacle2.Add(new Rectangle(600, randGen.Next(0, this.Height - 80), obstacleSize, obstacleSize));
+                obstacle2Speeds.Add(-12);
             }
 
             //remove obstacle if it goes off screen
@@ -245,7 +294,22 @@ namespace SpaceRace
                 }
             }
 
-                Refresh();
+            // check score and stop game if either player is at 3
+            if (player1Score == 3)
+            {
+                gameTimer.Enabled = false;
+                winLabel.Visible = true;
+                winLabel.Text = "Player 1 Wins!!";
+            }
+            else if (player2Score == 3)
+            {
+                gameTimer.Enabled = false;
+                winLabel.Visible = true;
+                winLabel.Text = "Player 2 Wins!!";
+            }
+
+            Refresh();
         }
+
     }
 }
