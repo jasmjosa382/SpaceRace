@@ -71,8 +71,8 @@
             // 
             this.winLabel.BackColor = System.Drawing.Color.Transparent;
             this.winLabel.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.winLabel.ForeColor = System.Drawing.Color.White;
-            this.winLabel.Location = new System.Drawing.Point(173, 317);
+            this.winLabel.ForeColor = System.Drawing.Color.Red;
+            this.winLabel.Location = new System.Drawing.Point(186, 183);
             this.winLabel.Name = "winLabel";
             this.winLabel.Size = new System.Drawing.Size(232, 35);
             this.winLabel.TabIndex = 4;
@@ -83,19 +83,20 @@
             this.titleLabel.BackColor = System.Drawing.Color.Transparent;
             this.titleLabel.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleLabel.ForeColor = System.Drawing.Color.White;
-            this.titleLabel.Location = new System.Drawing.Point(191, 143);
+            this.titleLabel.Location = new System.Drawing.Point(210, 90);
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(191, 35);
             this.titleLabel.TabIndex = 5;
             this.titleLabel.Text = "titleLabel";
             this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.titleLabel.Click += new System.EventHandler(this.titleLabel_Click);
             // 
             // subtitleLabel
             // 
             this.subtitleLabel.BackColor = System.Drawing.Color.Transparent;
             this.subtitleLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.subtitleLabel.ForeColor = System.Drawing.Color.White;
-            this.subtitleLabel.Location = new System.Drawing.Point(86, 178);
+            this.subtitleLabel.Location = new System.Drawing.Point(106, 125);
             this.subtitleLabel.Name = "subtitleLabel";
             this.subtitleLabel.Size = new System.Drawing.Size(392, 35);
             this.subtitleLabel.TabIndex = 6;

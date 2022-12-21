@@ -276,7 +276,7 @@ namespace SpaceRace
                     obstacle.RemoveAt(i);
                     obstacleSpeeds.RemoveAt(i);
                 }
-                }
+            }
 
             for (int i = 0; i < obstacle2.Count; i++)
             {
@@ -294,22 +294,42 @@ namespace SpaceRace
                 }
             }
 
-            // check score and stop game if either player is at 3
+            //// check score and stop game if either player is at 3
+            //if (player1Score == 3)
+            //{
+            //    gameTimer.Enabled = false;
+            //    winLabel.Visible = true;
+            //    winLabel.Text = "Player 1 Wins!!";
+            //}
+            //else if (player2Score == 3)
+            //{
+            //    gameTimer.Enabled = false;
+            //    winLabel.Visible = true;
+            //    winLabel.Text = "Player 2 Wins!!";
+            //}
+
+            //end game if either players scores equal 3
             if (player1Score == 3)
             {
                 gameTimer.Enabled = false;
                 winLabel.Visible = true;
                 winLabel.Text = "Player 1 Wins!!";
+                gameState = "over";
             }
             else if (player2Score == 3)
             {
                 gameTimer.Enabled = false;
                 winLabel.Visible = true;
                 winLabel.Text = "Player 2 Wins!!";
+                gameState = "over";
             }
 
             Refresh();
         }
 
+        private void titleLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
