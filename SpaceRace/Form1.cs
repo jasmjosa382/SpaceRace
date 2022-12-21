@@ -326,10 +326,5 @@ namespace SpaceRace
 
             Refresh();
         }
-
-        private void titleLabel_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

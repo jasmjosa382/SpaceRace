@@ -89,7 +89,6 @@
             this.titleLabel.TabIndex = 5;
             this.titleLabel.Text = "titleLabel";
             this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.titleLabel.Click += new System.EventHandler(this.titleLabel_Click);
             // 
             // subtitleLabel
             // 
