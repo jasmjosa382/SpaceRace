@@ -65,6 +65,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -78,6 +79,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\391539__unlistenable__electro-win-sound.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\403008__inspectorj__ui-confirmation-alert-a1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\658264__matrixxx__ai-question-mark.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\446142__justinvoke__race-start.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\382310__myfox14__game-over-arcade.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 //Space Racing Game
 //December 2022
 //Jasmine Josan
@@ -109,6 +109,9 @@ namespace SpaceRace
                 case Keys.Space:
                     if (gameState == "waiting" || gameState == "over")
                     {
+                        SoundPlayer start = new SoundPlayer(Properties.Resources.start);
+                        start.Play();
+
                         GameSetup();
                     }
                     break;
@@ -130,6 +133,8 @@ namespace SpaceRace
             }
             else if (gameState == "running")
             {
+                winLabel.Visible = false;
+
                 //update labels
                 p1ScoreLabel.Text = $"{player1Score}";
                 p2ScoreLabel.Text = $"{player2Score}";
@@ -194,6 +199,8 @@ namespace SpaceRace
                 p2ScoreLabel.Text = $"{player2Score}";
 
                 player2.Y = 310;
+                SoundPlayer point = new SoundPlayer(Properties.Resources.point);
+                point.Play();
             }
             else if (player1.Y < 5)
             {
@@ -201,6 +208,8 @@ namespace SpaceRace
                 p1ScoreLabel.Text = $"{player1Score}";
 
                 player1.Y = 310;
+                SoundPlayer point = new SoundPlayer(Properties.Resources.point);
+                point.Play();
             }
 
             //move obstacles 
@@ -261,17 +270,23 @@ namespace SpaceRace
                 }
             }
 
-            //check for collision between players and obstacles
+            //check for collision between player and obstacles
             for (int i = 0; i < obstacle.Count; i++)
             {
                 if (player1.IntersectsWith(obstacle[i]))
                 {
+                    SoundPlayer hit = new SoundPlayer(Properties.Resources.hit);
+                    hit.Play();
+
                     player1.Y = 310;
                     obstacle.RemoveAt(i);
                     obstacleSpeeds.RemoveAt(i);
                 }
                 else if (player2.IntersectsWith(obstacle[i]))
                 {
+                    SoundPlayer hit = new SoundPlayer(Properties.Resources.hit);
+                    hit.Play();
+
                     player2.Y = 310;
                     obstacle.RemoveAt(i);
                     obstacleSpeeds.RemoveAt(i);
@@ -282,31 +297,23 @@ namespace SpaceRace
             {
                 if (player1.IntersectsWith(obstacle2[i]))
                 {
+                    SoundPlayer hit = new SoundPlayer(Properties.Resources.hit);
+                    hit.Play();
+
                     player1.Y = 310;
                     obstacle2.RemoveAt(i);
                     obstacle2Speeds.RemoveAt(i);
                 }
                 else if (player2.IntersectsWith(obstacle2[i]))
                 {
+                    SoundPlayer hit = new SoundPlayer(Properties.Resources.hit);
+                    hit.Play();
+
                     player2.Y = 310;
                     obstacle2.RemoveAt(i);
                     obstacle2Speeds.RemoveAt(i);
                 }
             }
-
-            //// check score and stop game if either player is at 3
-            //if (player1Score == 3)
-            //{
-            //    gameTimer.Enabled = false;
-            //    winLabel.Visible = true;
-            //    winLabel.Text = "Player 1 Wins!!";
-            //}
-            //else if (player2Score == 3)
-            //{
-            //    gameTimer.Enabled = false;
-            //    winLabel.Visible = true;
-            //    winLabel.Text = "Player 2 Wins!!";
-            //}
 
             //end game if either players scores equal 3
             if (player1Score == 3)
@@ -315,6 +322,8 @@ namespace SpaceRace
                 winLabel.Visible = true;
                 winLabel.Text = "Player 1 Wins!!";
                 gameState = "over";
+                SoundPlayer winner = new SoundPlayer(Properties.Resources.winner);
+                winner.Play();
             }
             else if (player2Score == 3)
             {
@@ -322,6 +331,8 @@ namespace SpaceRace
                 winLabel.Visible = true;
                 winLabel.Text = "Player 2 Wins!!";
                 gameState = "over";
+                SoundPlayer winner = new SoundPlayer(Properties.Resources.winner);
+                winner.Play();
             }
 
             Refresh();
